@@ -27,13 +27,6 @@ steps:
       echo "BUILDRUN_HASH: " $BUILDRUN_HASH
 
   - type: Command
-    name: "Function Build Default Image"
-    timeoutInSeconds: 6000
-    command: |
-      cd ${OCI_PRIMARY_SOURCE_DIR}/fn-with-defaultImage
-      fn build  --verbose
-
-  - type: Command
     name: "Function Build Custom Image"
     timeoutInSeconds: 6000
     command: |
@@ -42,7 +35,6 @@ steps:
       echo "
       `docker images`
       "
-
       
 outputArtifacts:
   - name: output_fn_custom_image
@@ -51,11 +43,3 @@ outputArtifacts:
     # this location tag doesn't effect the tag used to deliver the container image
     # to the Container Registry.
     location: fncustomhelloworld:0.0.0
-
-  - name: output_fn_default_image
-    type: DOCKER_IMAGE
-    # this is only the locally exported container image name
-    # this location tag doesn't effect the tag used to deliver the container image
-    # to the Container Registry.
-    location: fndefaulthelloworld:0.0.0  
-  
